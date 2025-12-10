@@ -1,5 +1,6 @@
 import { injectable, inject } from 'inversify';
 import { IUserRepository } from '../../domain/repositories/IUserRepository.js';
+import { IConfigService } from '../../infrastructure/config/ConfigService.js';
 import { UnauthorizedError } from '../../shared/errors/index.js';
 import { TYPES } from '../../infrastructure/di/types.js';
 import { LoginDto, AuthResponseDto } from '../dtos/UserDto.js';
@@ -9,7 +10,8 @@ import jwt from 'jsonwebtoken';
 @injectable()
 export class LoginUseCase {
   constructor(
-    @inject(TYPES.IUserRepository) private userRepository: IUserRepository
+    @inject(TYPES.IUserRepository) private userRepository: IUserRepository,
+    @inject(TYPES.IConfigService) private configService: IConfigService
   ) {}
 
   async execute(dto: LoginDto): Promise<AuthResponseDto> {
@@ -30,8 +32,8 @@ export class LoginUseCase {
     }
 
     // Generate tokens
-    const jwtSecret = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
-    const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET || 'your-refresh-secret-change-in-production';
+    const jwtSecret = this.configService.getJwtSecret();
+    const jwtRefreshSecret = this.configService.getJwtRefreshSecret();
 
     const roleNames = user.roles?.map(role => role.name) || [];
     const permissions = user.roles?.flatMap(role => 

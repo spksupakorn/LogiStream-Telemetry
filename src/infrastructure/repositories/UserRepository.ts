@@ -47,6 +47,10 @@ export class UserRepository implements IUserRepository {
     return await this.userRepository.save(user);
   }
 
+  async save(user: User): Promise<User> {
+    return await this.userRepository.save(user);
+  }
+
   async update(id: string, userData: Partial<User>): Promise<User | null> {
     await this.userRepository.update(id, userData);
     return await this.findById(id);

@@ -56,7 +56,9 @@ export class CreateUserUseCase {
       // Filter out any nulls just in case, though the check above should prevent this.
       const validRoles = foundRoles.filter((role): role is Role => role !== null);
       user.roles = validRoles;
-      await this.userRepository.update(user.id, { roles: validRoles });
+      
+      // Use save() to update many-to-many relations, not update()
+      await this.userRepository.save(user);
     }
 
     // Fetch the complete user with roles

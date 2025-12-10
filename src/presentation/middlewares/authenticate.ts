@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { UnauthorizedError, ForbiddenError } from '../../shared/errors/index.js';
+import { UnauthorizedError } from '../../shared/errors/index.js';
 import jwt from 'jsonwebtoken';
 
 export interface JwtPayload {
@@ -25,7 +25,7 @@ export const authenticateToken = async (request: FastifyRequest, reply: FastifyR
     }
 
     const token = authHeader.substring(7);
-    const jwtSecret = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+    const jwtSecret = request.server.config.JWT_SECRET;
 
     const decoded = jwt.verify(token, jwtSecret) as JwtPayload;
     request.user = decoded;

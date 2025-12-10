@@ -17,5 +17,6 @@ export const TYPES = {
   UserController: Symbol.for('UserController'),
   
   // Infrastructure
-  DataSource: Symbol.for('DataSource')
+  DataSource: Symbol.for('DataSource'),
+  IConfigService: Symbol.for('IConfigService')
 };

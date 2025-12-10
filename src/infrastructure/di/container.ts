@@ -23,11 +23,21 @@ import { LoginUseCase } from '../../application/use-cases/LoginUseCase.js';
 import { AuthController } from '../../presentation/controllers/AuthController.js';
 import { UserController } from '../../presentation/controllers/UserController.js';
 
-export const createContainer = (dataSource: DataSource): Container => {
+// Config
+import { IConfigService, ConfigService } from '../config/ConfigService.js';
+
+export const createContainer = (dataSource: DataSource, config?: Record<string, any>): Container => {
   const container = new Container();
 
   // Bind DataSource
   container.bind<DataSource>(TYPES.DataSource).toConstantValue(dataSource);
+
+  // Bind Config Service
+  const configService = new ConfigService();
+  if (config) {
+    configService.initialize(config);
+  }
+  container.bind<IConfigService>(TYPES.IConfigService).toConstantValue(configService);
 
   // Bind Repositories
   // By using .to(), Inversify will automatically resolve dependencies declared in the constructor (like DataSource).
