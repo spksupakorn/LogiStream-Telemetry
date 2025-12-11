@@ -1,8 +1,7 @@
 import { injectable, inject } from 'inversify';
 import { IUserRepository } from '../../domain/repositories/IUserRepository.js';
 import { TYPES } from '../../infrastructure/di/types.js';
-import { PaginationDto } from '../dtos/PaginationDto.js';
-import { PaginatedUsersResponseDto } from '../dtos/UserDto.js';
+import { PaginationDto, PaginatedUsersResponseDto } from '../types/user.types.js';
 import { UserMapper } from '../mappers/UserMapper.js';
 
 @injectable()

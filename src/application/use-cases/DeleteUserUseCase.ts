@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify';
 import { IUserRepository } from '../../domain/repositories/IUserRepository.js';
 import { NotFoundError } from '../../shared/errors/index.js';
 import { TYPES } from '../../infrastructure/di/types.js';
-import { UserIdDto } from '../dtos/PaginationDto.js';
+import { UserIdDto } from '../types/user.types.js';
 
 @injectable()
 export class DeleteUserUseCase {

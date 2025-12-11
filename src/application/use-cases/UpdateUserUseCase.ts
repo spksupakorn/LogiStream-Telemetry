@@ -2,12 +2,8 @@ import { injectable, inject } from 'inversify';
 import { IUserRepository } from '../../domain/repositories/IUserRepository.js';
 import { NotFoundError } from '../../shared/errors/index.js';
 import { TYPES } from '../../infrastructure/di/types.js';
-import { UpdateUserDto, UserResponseDto } from '../dtos/UserDto.js';
+import { UpdateUserDtoWithId, UserResponseDto } from '../types/user.types.js';
 import { UserMapper } from '../mappers/UserMapper.js';
-
-export interface UpdateUserDtoWithId extends UpdateUserDto {
-  id: string;
-}
 
 @injectable()
 export class UpdateUserUseCase {

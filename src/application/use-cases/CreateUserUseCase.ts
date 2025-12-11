@@ -4,7 +4,7 @@ import { IRoleRepository } from '../../domain/repositories/IRoleRepository.js';
 import { Role } from '../../domain/entities/Role.entity.js';
 import { NotFoundError, ConflictError } from '../../shared/errors/index.js';
 import { TYPES } from '../../infrastructure/di/types.js';
-import { CreateUserDto, UserResponseDto } from '../dtos/UserDto.js';
+import { CreateUserDto, UserResponseDto } from '../types/user.types.js';
 import { UserMapper } from '../mappers/UserMapper.js';
 import bcrypt from 'bcrypt';
 
@@ -17,11 +17,14 @@ export class CreateUserUseCase {
 
   async execute(dto: CreateUserDto): Promise<UserResponseDto> {
     // Check if user with the same email or username already exists
-    const existingUserByEmail = await this.userRepository.findByEmail(dto.email);
+    const [existingUserByEmail, existingUserByUsername] = await Promise.all([
+      this.userRepository.findByEmail(dto.email),
+      this.userRepository.findByUsername(dto.username)
+    ]);
+
     if (existingUserByEmail) {
       throw new ConflictError('User with this email already exists');
     }
-    const existingUserByUsername = await this.userRepository.findByUsername(dto.username);
     if (existingUserByUsername) {
       throw new ConflictError('Username already taken');
     }
