@@ -7,6 +7,7 @@ import configPlugin from './plugins/config.js';
 import databasePlugin from './plugins/database.js';
 import diPlugin from './plugins/di.js';
 import corsPlugin from './plugins/cors.js';
+import swaggerPlugin from './plugins/swagger.js';
 
 // Routes
 import authRoutes from './presentation/routes/auth.routes.js';
@@ -64,6 +65,7 @@ export async function buildApp(): Promise<FastifyInstance> {
     });
   }
   await fastify.register(corsPlugin);
+  await fastify.register(swaggerPlugin);
   await fastify.register(databasePlugin);
   await fastify.register(diPlugin);
 

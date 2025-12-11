@@ -32,6 +32,9 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
     {
       preHandler: [authenticateToken, requireRoles('admin')],
       schema: {
+        tags: ['users'],
+        description: 'Get all users with pagination',
+        security: [{ bearerAuth: [] }],
         querystring: PaginationQuerySchema,
         response: {
           200: PaginatedResponseSchema(UserResponseSchema),
@@ -49,6 +52,9 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
     {
       preHandler: [authenticateToken],
       schema: {
+        tags: ['users'],
+        description: 'Get user by ID',
+        security: [{ bearerAuth: [] }],
         params: UserIdParamsSchema,
         response: {
           200: SuccessResponseSchema(UserResponseSchema),
@@ -66,6 +72,9 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
     {
       preHandler: [authenticateToken, requireRoles('admin')],
       schema: {
+        tags: ['users'],
+        description: 'Create a new user (Admin only)',
+        security: [{ bearerAuth: [] }],
         body: CreateUserBodySchema,
         response: {
           201: CreatedResponseSchema(UserResponseSchema),
@@ -85,6 +94,9 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
     {
       preHandler: [authenticateToken],
       schema: {
+        tags: ['users'],
+        description: 'Update user information',
+        security: [{ bearerAuth: [] }],
         params: UserIdParamsSchema,
         body: UpdateUserBodySchema,
         response: {
@@ -104,6 +116,9 @@ const userRoutes: FastifyPluginAsync = async (fastify) => {
     {
       preHandler: [authenticateToken, requireRoles('admin')],
       schema: {
+        tags: ['users'],
+        description: 'Delete a user (Admin only)',
+        security: [{ bearerAuth: [] }],
         params: UserIdParamsSchema,
         response: {
           204: Type.Null(),

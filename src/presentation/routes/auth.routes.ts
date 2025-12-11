@@ -26,6 +26,8 @@ const authRoutes: FastifyPluginAsync = async (fastify) => {
     '/register',
     {
       schema: {
+        tags: ['auth'],
+        description: 'Register a new user',
         body: CreateUserSchema,
         response: {
           201: CreatedResponseSchema(UserResponseSchema),
@@ -42,6 +44,8 @@ const authRoutes: FastifyPluginAsync = async (fastify) => {
     '/login',
     {
       schema: {
+        tags: ['auth'],
+        description: 'Login with username/email and password',
         body: LoginSchema,
         response: {
           200: SuccessResponseSchema(AuthResponseSchema),
@@ -58,6 +62,8 @@ const authRoutes: FastifyPluginAsync = async (fastify) => {
     '/refresh',
     {
       schema: {
+        tags: ['auth'],
+        description: 'Refresh access token using refresh token',
         body: RefreshTokenSchema,
         response: {
           200: SuccessResponseSchema(AuthResponseSchema),
