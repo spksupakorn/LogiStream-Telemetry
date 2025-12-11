@@ -18,5 +18,6 @@ export const TYPES = {
   
   // Infrastructure
   DataSource: Symbol.for('DataSource'),
-  IConfigService: Symbol.for('IConfigService')
+  IConfigService: Symbol.for('IConfigService'),
+  ITransactionManager: Symbol.for('ITransactionManager')
 };

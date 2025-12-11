@@ -26,6 +26,9 @@ import { UserController } from '../../presentation/controllers/UserController.js
 // Config
 import { IConfigService, ConfigService } from '../config/ConfigService.js';
 
+// Transaction
+import { ITransactionManager, TransactionManager } from '../database/TransactionManager.js';
+
 export const createContainer = (dataSource: DataSource, config?: Record<string, any>): Container => {
   const container = new Container();
 
@@ -38,6 +41,9 @@ export const createContainer = (dataSource: DataSource, config?: Record<string, 
     configService.initialize(config);
   }
   container.bind<IConfigService>(TYPES.IConfigService).toConstantValue(configService);
+
+  // Bind Transaction Manager
+  container.bind<ITransactionManager>(TYPES.ITransactionManager).to(TransactionManager).inSingletonScope();
 
   // Bind Repositories
   // By using .to(), Inversify will automatically resolve dependencies declared in the constructor (like DataSource).
