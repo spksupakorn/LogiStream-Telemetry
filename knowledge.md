@@ -194,3 +194,16 @@ The `fp` utility from `fastify-plugin` is used to wrap plugins. A key rule is th
 
 This is because Fastify's registration system relies on the standard JavaScript/TypeScript module system. `export` makes the plugin available for `import` and registration by the `@fastify/autoload` mechanism. The `fp` wrapper itself modifies the plugin's behavior, often to prevent encapsulation so that decorators or hooks added by the plugin are available globally.
 
+## if switch to commonjs
+tsconfig.json
+  "target": "ES2022",
+  "module": "commonjs",
+  "moduleResolution": "node",
+  "ignoreDeprecations": "6.0",
+  "outDir": "./dist",
+  "rootDir": "./src",
+
+package.json
+  "description": "",
+  "main": "index.js",
+  "type": "module", //**delete
