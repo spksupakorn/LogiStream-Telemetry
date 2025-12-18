@@ -6,4 +6,6 @@ export default fp(async (fastify) => {
     origin: fastify.config.CORS_ORIGIN,
     credentials: true
   });
+}, {
+  name: 'cors'
 });

@@ -3,7 +3,7 @@ import { IUserRepository } from '../../domain/repositories/IUserRepository.js';
 import { IConfigService } from '../../infrastructure/config/ConfigService.js';
 import { UnauthorizedError } from '../../shared/errors/index.js';
 import { TYPES } from '../../infrastructure/di/types.js';
-import { LoginDto, AuthResponseDto } from '../types/user.types.js';
+import { LoginDto, AuthResponseDto } from '../dtos/user.dto.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 

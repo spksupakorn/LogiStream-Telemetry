@@ -57,6 +57,9 @@ const swaggerPlugin: FastifyPluginAsync = fp(async (fastify) => {
   });
 
   fastify.log.info('📚 Swagger documentation available at /docs');
+}, {
+  name: 'swagger'
 });
+
 
 export default swaggerPlugin;
