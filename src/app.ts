@@ -8,10 +8,13 @@ import databasePlugin from './plugins/database.js';
 import diPlugin from './plugins/di.js';
 import corsPlugin from './plugins/cors.js';
 import swaggerPlugin from './plugins/swagger.js';
+import mongoosePlugin from './plugins/mongoose.js';
+import kafkaPlugin from './plugins/kafka.js';
 
 // Routes
 import authRoutes from './presentation/routes/auth.routes.js';
 import userRoutes from './presentation/routes/user.routes.js';
+import telemetryRoutes from './presentation/routes/telemetry.routes.js';
 
 // Error Handler
 import { ErrorHandler } from './shared/errors/ErrorHandler.js';
@@ -68,6 +71,8 @@ export async function buildApp(): Promise<FastifyInstance> {
   await fastify.register(swaggerPlugin);
   await fastify.register(databasePlugin);
   await fastify.register(diPlugin);
+  await fastify.register(mongoosePlugin);
+  await fastify.register(kafkaPlugin);
 
   // Register error handler
   fastify.setErrorHandler(ErrorHandler.handle);
@@ -84,6 +89,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   // Register API routes
   await fastify.register(authRoutes, { prefix: '/api/v1/auth' });
   await fastify.register(userRoutes, { prefix: '/api/v1/users' });
+  await fastify.register(telemetryRoutes, { prefix: '/api/v1/telemetry' });
 
   return fastify;
 }

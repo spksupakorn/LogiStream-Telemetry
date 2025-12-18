@@ -1,0 +1,286 @@
+{
+  "info": {
+    "name": "LogiStream Telemetry API",
+    "description": "Complete API collection for LogiStream Telemetry Ingestion Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health & Status",
+      "item": [
+        {
+          "name": "Application Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Telemetry Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry/health",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry", "health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Telemetry Ingestion",
+      "item": [
+        {
+          "name": "Ingest Single Telemetry - Valid",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"device-001\",\n  \"truckId\": \"truck-001\",\n  \"latitude\": 13.7563,\n  \"longitude\": 100.5018,\n  \"temperature\": -5,\n  \"humidity\": 45,\n  \"speed\": 60,\n  \"altitude\": 50\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry"]
+            }
+          }
+        },
+        {
+          "name": "Ingest Single Telemetry - With Timestamp",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"device-002\",\n  \"truckId\": \"truck-001\",\n  \"latitude\": 14.0583,\n  \"longitude\": 100.6033,\n  \"temperature\": -3,\n  \"humidity\": 50,\n  \"speed\": 75,\n  \"timestamp\": \"{{$isoTimestamp}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry"]
+            }
+          }
+        },
+        {
+          "name": "Ingest Single Telemetry - Temperature Alert",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"device-003\",\n  \"truckId\": \"truck-002\",\n  \"latitude\": 13.7563,\n  \"longitude\": 100.5018,\n  \"temperature\": 10,\n  \"humidity\": 45,\n  \"speed\": 50\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry"]
+            }
+          }
+        },
+        {
+          "name": "Ingest Single Telemetry - Humidity Alert",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"device-004\",\n  \"truckId\": \"truck-002\",\n  \"latitude\": 13.7563,\n  \"longitude\": 100.5018,\n  \"temperature\": -5,\n  \"humidity\": 85,\n  \"speed\": 50\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry"]
+            }
+          }
+        },
+        {
+          "name": "Ingest Batch Telemetry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telemetry\": [\n    {\n      \"deviceId\": \"device-001\",\n      \"truckId\": \"truck-001\",\n      \"latitude\": 13.7563,\n      \"longitude\": 100.5018,\n      \"temperature\": -5,\n      \"humidity\": 45,\n      \"speed\": 60\n    },\n    {\n      \"deviceId\": \"device-002\",\n      \"truckId\": \"truck-001\",\n      \"latitude\": 14.0583,\n      \"longitude\": 100.6033,\n      \"temperature\": -3,\n      \"humidity\": 50,\n      \"speed\": 75\n    },\n    {\n      \"deviceId\": \"device-003\",\n      \"truckId\": \"truck-002\",\n      \"latitude\": 13.9253,\n      \"longitude\": 100.5445,\n      \"temperature\": -7,\n      \"humidity\": 42,\n      \"speed\": 55\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry/batch",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry", "batch"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Validation Tests",
+      "item": [
+        {
+          "name": "Invalid - Missing DeviceId",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"truckId\": \"truck-001\",\n  \"latitude\": 13.7563,\n  \"longitude\": 100.5018,\n  \"temperature\": -5,\n  \"humidity\": 45\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry"]
+            }
+          }
+        },
+        {
+          "name": "Invalid - Latitude Out of Range",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"device-001\",\n  \"truckId\": \"truck-001\",\n  \"latitude\": 100,\n  \"longitude\": 100.5018,\n  \"temperature\": -5,\n  \"humidity\": 45\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry"]
+            }
+          }
+        },
+        {
+          "name": "Invalid - Temperature Out of Range",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"device-001\",\n  \"truckId\": \"truck-001\",\n  \"latitude\": 13.7563,\n  \"longitude\": 100.5018,\n  \"temperature\": 50,\n  \"humidity\": 45\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry"]
+            }
+          }
+        },
+        {
+          "name": "Invalid - Humidity Out of Range",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"device-001\",\n  \"truckId\": \"truck-001\",\n  \"latitude\": 13.7563,\n  \"longitude\": 100.5018,\n  \"temperature\": -5,\n  \"humidity\": 150\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry"]
+            }
+          }
+        },
+        {
+          "name": "Invalid - Future Timestamp",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"device-001\",\n  \"truckId\": \"truck-001\",\n  \"latitude\": 13.7563,\n  \"longitude\": 100.5018,\n  \"temperature\": -5,\n  \"humidity\": 45,\n  \"timestamp\": \"2030-12-31T23:59:59Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry"]
+            }
+          }
+        },
+        {
+          "name": "Invalid - Empty Batch",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"telemetry\": []\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/telemetry/batch",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "telemetry", "batch"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}

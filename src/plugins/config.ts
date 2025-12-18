@@ -7,13 +7,22 @@ const schema = Type.Object({
   PORT: Type.Number({ default: 3000 }),
   NODE_ENV: Type.String({ default: 'development' }),
   
-  // Database
+  // PostgreSQL Database (User authentication)
   DB_HOST: Type.String({ default: 'localhost' }),
   DB_PORT: Type.Number({ default: 5432 }),
   DB_USERNAME: Type.String({ default: 'postgres' }),
   DB_PASSWORD: Type.String({ default: 'postgres' }),
   DB_DATABASE: Type.String({ default: 'logistream' }),
   DB_SSL: Type.Boolean({ default: false }),
+  
+  // MongoDB (Telemetry data)
+  MONGO_URI: Type.String({ 
+    default: 'mongodb://admin:admin123@localhost:27017/telemetry?authSource=admin' 
+  }),
+  
+  // Kafka (Message broker)
+  KAFKA_BROKERS: Type.String({ default: 'localhost:29092' }),
+  KAFKA_CLIENT_ID: Type.String({ default: 'logistream-telemetry' }),
   
   // JWT
   JWT_SECRET: Type.String({ default: 'your-secret-key-change-in-production' }),
@@ -28,7 +37,10 @@ export default fp(async (fastify) => {
     schema,
     dotenv: true // Load .env file automatically
   });
-});
+}, {
+  name: 'config'
+}
+);
 
 // Extend FastifyInstance to include config
 declare module 'fastify' {
@@ -42,6 +54,9 @@ declare module 'fastify' {
       DB_PASSWORD: string;
       DB_DATABASE: string;
       DB_SSL: boolean;
+      MONGO_URI: string;
+      KAFKA_BROKERS: string;
+      KAFKA_CLIENT_ID: string;
       JWT_SECRET: string;
       JWT_REFRESH_SECRET: string;
       CORS_ORIGIN: string;

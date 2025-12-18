@@ -6,7 +6,7 @@ import { Role } from '../../domain/entities/Role.entity.js';
 import { User } from '../../domain/entities/User.entity.js';
 import { NotFoundError, ConflictError } from '../../shared/errors/index.js';
 import { TYPES } from '../../infrastructure/di/types.js';
-import { CreateUserDto, UserResponseDto } from '../types/user.types.js';
+import { CreateUserDto, UserResponseDto } from '../dtos/user.dto.js';
 import { UserMapper } from '../mappers/UserMapper.js';
 import bcrypt from 'bcrypt';
 

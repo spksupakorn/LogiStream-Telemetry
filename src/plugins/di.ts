@@ -8,6 +8,9 @@ const diPlugin: FastifyPluginAsync = fp(async (fastify) => {
   
   fastify.decorate('diContainer', container);
   fastify.log.info('✅ DI Container initialized');
+}, {
+  name: 'di',
+  dependencies: ['config', 'db']
 });
 
 declare module 'fastify' {

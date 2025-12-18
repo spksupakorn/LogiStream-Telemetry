@@ -22,6 +22,9 @@ const databasePlugin: FastifyPluginAsync = fp(async (fastify) => {
     fastify.log.error({ err: error }, '❌ Database connection failed');
     throw error;
   }
+},{
+  name: 'db',
+  dependencies: ['config']
 });
 
 declare module 'fastify' {
