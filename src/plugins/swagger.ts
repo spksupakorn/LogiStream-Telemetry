@@ -19,8 +19,8 @@ const swaggerPlugin: FastifyPluginAsync = fp(async (fastify) => {
       },
       servers: [
         {
-          url: 'http://localhost:3000',
-          description: 'Development server'
+          url: `http://localhost:${fastify.config.PORT}`,
+          description: `${fastify.config.NODE_ENV} server`
         }
       ],
       tags: [
@@ -47,13 +47,13 @@ const swaggerPlugin: FastifyPluginAsync = fp(async (fastify) => {
       docExpansion: 'list',
       deepLinking: true,
       displayRequestDuration: true
-    },
-    staticCSP: true,
-    transformStaticCSP: (header) => header,
-    transformSpecification: (swaggerObject) => {
-      return swaggerObject;
-    },
-    transformSpecificationClone: true
+    }
+    // staticCSP: true,
+    // transformStaticCSP: (header) => header,
+    // transformSpecification: (swaggerObject) => {
+    //   return swaggerObject;
+    // },
+    // transformSpecificationClone: true
   });
 
   fastify.log.info('📚 Swagger documentation available at /docs');
