@@ -2,7 +2,7 @@ import { injectable, inject } from 'inversify';
 import { IUserRepository } from '../../domain/repositories/IUserRepository.js';
 import { NotFoundError } from '../../shared/errors/index.js';
 import { TYPES } from '../../infrastructure/di/types.js';
-import { UserIdDto, UserResponseDto } from '../types/user.types.js';
+import { UserIdDto, UserResponseDto } from '../dtos/user.dto.js';
 import { UserMapper } from '../mappers/UserMapper.js';
 
 @injectable()
