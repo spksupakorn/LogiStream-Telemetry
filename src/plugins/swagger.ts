@@ -19,13 +19,13 @@ const swaggerPlugin: FastifyPluginAsync = fp(async (fastify) => {
       },
       servers: [
         {
-          url: 'http://localhost:3000',
-          description: 'Development server'
+          url: `http://localhost:${fastify.config.PORT}`,
+          description: `${fastify.config.NODE_ENV} server`
         }
       ],
       tags: [
         { name: 'auth', description: 'Authentication endpoints' },
-        { name: 'users', description: 'User management endpoints' }
+        { name: 'users', description: 'User management endpoints' },
       ],
       components: {
         securitySchemes: {
@@ -47,13 +47,13 @@ const swaggerPlugin: FastifyPluginAsync = fp(async (fastify) => {
       docExpansion: 'list',
       deepLinking: true,
       displayRequestDuration: true
-    },
-    staticCSP: true,
-    transformStaticCSP: (header) => header,
-    transformSpecification: (swaggerObject) => {
-      return swaggerObject;
-    },
-    transformSpecificationClone: true
+    }
+    // staticCSP: true,
+    // transformStaticCSP: (header) => header,
+    // transformSpecification: (swaggerObject) => {
+    //   return swaggerObject;
+    // },
+    // transformSpecificationClone: true
   });
 
   fastify.log.info('📚 Swagger documentation available at /docs');
